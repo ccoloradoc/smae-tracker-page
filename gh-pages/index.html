@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SMAE Tracker — Controla tus equivalentes SMAE</title>
+  <meta name="description" content="Aplicación Android para el seguimiento diario de alimentos usando el Sistema Mexicano de Alimentos Equivalentes (SMAE). Metas, estadísticas y widget."/>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    /* ── Hero ───────────────────────────────────────────────────────────────── */
+    .hero {
+      padding: 72px 24px 80px;
+      background: linear-gradient(160deg, #f0f7f1 0%, var(--surface) 60%);
+    }
+    .hero__inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 64px;
+    }
+    .hero__title {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 800; line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+    .hero__title span { color: var(--sage); }
+    .hero__desc {
+      font-size: 1.1rem; color: var(--text-muted);
+      line-height: 1.75; margin-bottom: 36px; max-width: 480px;
+    }
+    .hero__actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .hero__note { font-size: .82rem; color: var(--text-muted); margin-top: 16px; }
+    .hero__mockup {
+      display: flex; justify-content: center; align-items: center;
+    }
+    .hero__mockup img {
+      height: 480px; border-radius: 28px;
+      box-shadow: 0 24px 64px rgba(0,0,0,.18);
+      transform: rotate(2deg);
+      transition: transform .3s;
+    }
+    .hero__mockup img:hover { transform: rotate(0deg) scale(1.02); }
+
+    /* ── SMAE section ───────────────────────────────────────────────────────── */
+    .smae-section {
+      background: white;
+      padding: 72px 24px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .smae-section__inner { max-width: 1100px; margin: 0 auto; }
+    .smae-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 64px;
+    }
+    .smae-text h2 { font-size: 1.9rem; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
+    .smae-text p  { font-size: .97rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 12px; }
+    .groups-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    }
+    .group-chip {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--surface); border-radius: var(--radius-md);
+      padding: 10px 14px; border: 1px solid var(--border);
+    }
+    .group-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+    .group-chip__name { font-size: .92rem; font-weight: 600; }
+
+    /* ── Features ───────────────────────────────────────────────────────────── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .feature-card {
+      background: white; border-radius: var(--radius-lg);
+      padding: 24px; box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      transition: box-shadow .2s, transform .15s;
+    }
+    .feature-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .feature-card__icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 { font-size: 1.02rem; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p  { font-size: .9rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── Screenshots ────────────────────────────────────────────────────────── */
+    .screenshots-track {
+      display: flex; gap: 20px;
+      overflow-x: auto; padding: 8px 0 20px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+    .screenshots-track::-webkit-scrollbar { display: none; }
+    .screenshot-item { flex: 0 0 auto; scroll-snap-align: start; text-align: center; }
+    .screenshot-item img {
+      height: 380px; border-radius: 22px;
+      box-shadow: var(--shadow-md);
+      transition: transform .2s;
+    }
+    .screenshot-item img:hover { transform: scale(1.02); }
+    .screenshot-item p {
+      margin-top: 12px; font-size: .88rem;
+      color: var(--text-muted); font-weight: 500;
+    }
+
+    /* ── CTA banner ─────────────────────────────────────────────────────────── */
+    .cta-banner {
+      background: var(--sage);
+      padding: 64px 24px; text-align: center;
+      margin-top: 80px;
+    }
+    .cta-banner h2 { font-size: 1.9rem; font-weight: 800; color: white; margin-bottom: 12px; }
+    .cta-banner p  { font-size: 1rem; color: rgba(255,255,255,.8); margin-bottom: 32px; }
+    .btn--white {
+      background: white; color: var(--sage-dark);
+      border-color: white;
+    }
+    .btn--white:hover { background: var(--surface); }
+    .btn--white-outline {
+      border-color: rgba(255,255,255,.6); color: white; background: transparent;
+    }
+    .btn--white-outline:hover { background: rgba(255,255,255,.1); }
+
+    /* ── Responsive ─────────────────────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .hero__inner   { grid-template-columns: 1fr; gap: 48px; }
+      .hero__mockup  { order: -1; }
+      .hero__mockup img { height: 340px; transform: none; }
+      .hero__title   { font-size: 2.2rem; }
+      .smae-layout   { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 48px 20px 56px; }
+      .hero__mockup img { height: 280px; }
+      .groups-grid { grid-template-columns: 1fr 1fr; }
+      .cta-banner { padding: 48px 20px; }
+      .cta-banner h2 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ─────────────────────────────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">
+        <img src="assets/logo.svg" alt="SMAE Tracker"/>
+        SMAE Tracker
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html"          data-nav>Inicio</a></li>
+        <li><a href="about.html"          data-nav>Acerca de</a></li>
+        <li><a href="changelog.html"      data-nav>Novedades</a></li>
+        <li><a href="contact.html"        data-nav>Contacto</a></li>
+        <li><a href="privacy-policy.html" data-nav>Privacidad</a></li>
+      </ul>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Menú" aria-expanded="false">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6"  x2="19" y2="6"/>
+          <line x1="3" y1="11" x2="19" y2="11"/>
+          <line x1="3" y1="16" x2="19" y2="16"/>
+        </svg>
+      </button>
+    </div>
+    <div class="nav__mobile" id="nav-mobile">
+      <a href="index.html"          data-nav>Inicio</a>
+      <a href="about.html"          data-nav>Acerca de</a>
+      <a href="changelog.html"      data-nav>Novedades</a>
+      <a href="contact.html"        data-nav>Contacto</a>
+      <a href="privacy-policy.html" data-nav>Privacidad</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ── Hero ──────────────────────────────────────────────────────────── -->
+    <section class="hero">
+      <div class="hero__inner">
+        <div class="hero__text">
+          <div class="badge">App Android · Gratis</div>
+          <h1 class="hero__title">
+            Controla tus<br/>
+            <span>equivalentes SMAE</span><br/>
+            cada día
+          </h1>
+          <p class="hero__desc">
+            Registra tus alimentos, configura metas por grupo alimenticio
+            y monitorea tu progreso con estadísticas visuales.
+            Diseñado para funcionar sin conexión y respetando tu privacidad.
+          </p>
+          <div class="hero__actions">
+            <a href="#" class="btn btn--primary btn--lg btn--disabled" aria-disabled="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3.18 23.76a2.5 2.5 0 0 0 2.59-.14L18.1 16.5l-3.4-3.4-11.52 10.66zm-1-20.8C2.07 3.4 2 3.9 2 4.42v15.16c0 .52.07 1 .18 1.44l.07.07L15.07 8.26l-.07-.06L2.18 2.96zm20.07 8.7-3.07-1.74-3.74 3.74 3.74 3.74 3.1-1.76a2.5 2.5 0 0 0 0-4z"/>
+              </svg>
+              Google Play
+            </a>
+            <a href="about.html" class="btn btn--outline">Acerca de</a>
+          </div>
+          <p class="hero__note">Próximo lanzamiento en Google Play Store · Android 10+</p>
+        </div>
+
+        <div class="hero__mockup">
+          <img src="assets/screenshots/dashboard.svg" alt="SMAE Tracker — Pantalla de inicio"/>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ¿Qué es SMAE? ──────────────────────────────────────────────────── -->
+    <section class="smae-section">
+      <div class="smae-section__inner">
+        <div class="smae-layout">
+
+          <div class="smae-text">
+            <div class="badge">Sistema SMAE</div>
+            <h2>El método nutricional más usado en México</h2>
+            <p>
+              El <strong>Sistema Mexicano de Alimentos Equivalentes (SMAE)</strong> es
+              el estándar nutricional oficial de México. Clasifica los alimentos en
+              8 grupos y usa "equivalentes" como unidad de medida, permitiendo sustituir
+              alimentos dentro del mismo grupo sin afectar la dieta.
+            </p>
+            <p>
+              SMAE Tracker te ayuda a registrar cuántos equivalentes consumes de cada
+              grupo al día, comparándolos con las metas que tú configuras junto a
+              tu nutriólogo o dietista.
+            </p>
+          </div>
+
+          <div class="groups-grid">
+            <div class="group-chip">
+              <div class="group-dot" style="background:#81A882;"></div>
+              <span class="group-chip__name">Verduras</span>
+            </div>
+            <div class="group-chip">
+              <div class="group-dot" style="background:#E8A87C;"></div>
+              <span class="group-chip__name">Frutas</span>
+            </div>
+            <div class="group-chip">
+              <div class="group-dot" style="background:#D4A853;"></div>
+              <span class="group-chip__name">Cereales</span>
+            </div>
+            <div class="group-chip">
+              <div class="group-dot" style="background:#8B6B8A;"></div>
+              <span class="group-chip__name">Leguminosas</span>
+            </div>
+            <div class="group-chip">
+              <div class="group-dot" style="background:#C97878;"></div>
+              <span class="group-chip__name">AOA</span>
+            </div>
+            <div class="group-chip">
+              <div class="group-dot" style="background:#7B9EC7;"></div>
+              <span class="group-chip__name">Lácteos</span>
+            </div>
+            <div class="group-chip">
+              <div class="group-dot" style="background:#B5A97E;"></div>
+              <span class="group-chip__name">Grasas</span>
+            </div>
+            <div class="group-chip">
+              <div class="group-dot" style="background:#9DB87A;"></div>
+              <span class="group-chip__name">Oleaginosas</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Features ──────────────────────────────────────────────────────── -->
+    <section class="section">
+      <div class="section__inner">
+        <h2 class="section__title">Todo lo que necesitas</h2>
+        <p class="section__subtitle">Herramientas diseñadas para hacer el seguimiento SMAE simple y constante.</p>
+
+        <div class="features-grid">
+
+          <div class="feature-card">
+            <div class="feature-card__icon" style="background:#E8F4EA;">
+              <svg width="24" height="24" fill="none" stroke="#6B8F71" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+              </svg>
+            </div>
+            <h3>Registro diario</h3>
+            <p>Registra alimentos por tipo de comida usando el catálogo SMAE. Busca por nombre o filtra por grupo alimenticio.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon" style="background:#FEF3E2;">
+              <svg width="24" height="24" fill="none" stroke="#DDB892" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <h3>Metas nutricionales</h3>
+            <p>Configura cuántos equivalentes consumir por cada uno de los 8 grupos SMAE y visualiza tu avance en tiempo real.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon" style="background:#E8F4EA;">
+              <svg width="24" height="24" fill="none" stroke="#6B8F71" stroke-width="2" viewBox="0 0 24 24">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <h3>Estadísticas y tendencias</h3>
+            <p>Consulta tu progreso semanal y mensual. Gráficas de barras, desglose por grupo y rachas de cumplimiento.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon" style="background:#F3EDFF;">
+              <svg width="24" height="24" fill="none" stroke="#8B6B8A" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+              </svg>
+            </div>
+            <h3>Favoritos</h3>
+            <p>Marca tus alimentos más frecuentes para acceder a ellos en un toque al registrar tu siguiente comida.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon" style="background:#FEF3E2;">
+              <svg width="24" height="24" fill="none" stroke="#DDB892" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+            </div>
+            <h3>Templates de comidas</h3>
+            <p>Crea plantillas de comidas frecuentes y aplícalas con un toque para registrar varios alimentos de una vez.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon" style="background:#E8F4EA;">
+              <svg width="24" height="24" fill="none" stroke="#6B8F71" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                <path d="M8 21h8M12 17v4"/>
+              </svg>
+            </div>
+            <h3>Widget Android</h3>
+            <p>Consulta tu progreso sin abrir la app. El widget muestra el avance del día y el resumen semanal desde tu pantalla de inicio.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon" style="background:#FEF3E2;">
+              <svg width="24" height="24" fill="none" stroke="#DDB892" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </div>
+            <h3>Backup y exportación</h3>
+            <p>Exporta tus datos en JSON o CSV. Importa respaldos cuando cambies de dispositivo o reinstales la app.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon" style="background:#E8F4EA;">
+              <svg width="24" height="24" fill="none" stroke="#6B8F71" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3>Privacidad total</h3>
+            <p>Todos tus datos nutricionales se almacenan únicamente en tu dispositivo. Sin cuentas, sin servidores, sin rastreo.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Screenshots ────────────────────────────────────────────────────── -->
+    <section class="section" style="background:white; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+      <div class="section__inner">
+        <h2 class="section__title">Capturas de pantalla</h2>
+        <p class="section__subtitle">Un vistazo a la experiencia.</p>
+
+        <div class="screenshots-track">
+          <div class="screenshot-item">
+            <img src="assets/screenshots/dashboard.svg" alt="Pantalla de inicio"/>
+            <p>Inicio</p>
+          </div>
+          <div class="screenshot-item">
+            <img src="assets/screenshots/register.svg" alt="Registro de alimentos"/>
+            <p>Registro</p>
+          </div>
+          <div class="screenshot-item">
+            <img src="assets/screenshots/goals.svg" alt="Configuración de metas"/>
+            <p>Metas</p>
+          </div>
+          <div class="screenshot-item">
+            <img src="assets/screenshots/statistics.svg" alt="Estadísticas"/>
+            <p>Estadísticas</p>
+          </div>
+          <div class="screenshot-item">
+            <img src="assets/screenshots/widget.svg" alt="Widget Android"/>
+            <p>Widget</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ────────────────────────────────────────────────────────────── -->
+    <section class="cta-banner">
+      <h2>Disponible próximamente</h2>
+      <p>SMAE Tracker estará disponible en Google Play Store. Gratis, sin anuncios.</p>
+      <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+        <a href="#" class="btn btn--white btn--lg btn--disabled" aria-disabled="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3.18 23.76a2.5 2.5 0 0 0 2.59-.14L18.1 16.5l-3.4-3.4-11.52 10.66zm-1-20.8C2.07 3.4 2 3.9 2 4.42v15.16c0 .52.07 1 .18 1.44l.07.07L15.07 8.26l-.07-.06L2.18 2.96zm20.07 8.7-3.07-1.74-3.74 3.74 3.74 3.74 3.1-1.76a2.5 2.5 0 0 0 0-4z"/>
+          </svg>
+          Disponible en Google Play
+        </a>
+        <a href="contact.html" class="btn btn--white-outline btn--lg">Contacto</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────────────────────── -->
+  <footer class="footer" style="margin-top:0;">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="assets/logo.svg" alt="SMAE Tracker"/>
+        SMAE Tracker
+      </div>
+      <nav class="footer__links">
+        <a href="privacy-policy.html">Política de privacidad</a>
+        <a href="about.html">Acerca de</a>
+        <a href="changelog.html">Novedades</a>
+        <a href="contact.html">Contacto</a>
+      </nav>
+      <p class="footer__copy">© 2026 SMAE Tracker · Hecho en México</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

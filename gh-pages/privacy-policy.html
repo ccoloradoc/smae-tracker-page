@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Política de Privacidad — SMAE Tracker</title>
+  <meta name="description" content="Política de privacidad de SMAE Tracker. Conoce cómo se manejan tus datos."/>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    .policy { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+    .policy h1 { font-size: 2rem; margin-bottom: 8px; }
+    .policy .updated { font-size: .9rem; color: var(--text-muted); margin-bottom: 48px; }
+    .policy h2 { font-size: 1.15rem; font-weight: 700; margin: 40px 0 12px; color: var(--sage-dark); }
+    .policy p  { font-size: .97rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.75; }
+    .policy ul { margin: 8px 0 12px 0; display: flex; flex-direction: column; gap: 6px; }
+    .policy ul li { font-size: .97rem; color: var(--text-muted); padding-left: 20px; position: relative; line-height: 1.6; }
+    .policy ul li::before { content: "•"; color: var(--sage); position: absolute; left: 0; font-weight: 700; }
+    .policy a { color: var(--sage); text-decoration: underline; }
+    .policy a:hover { color: var(--sage-dark); }
+    .policy hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+    .policy .highlight {
+      background: #E8F4EA; border-left: 3px solid var(--sage);
+      border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 16px 0;
+      font-size: .93rem; color: var(--sage-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">
+        <img src="assets/logo.svg" alt="SMAE Tracker"/>
+        SMAE Tracker
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html"          data-nav>Inicio</a></li>
+        <li><a href="about.html"          data-nav>Acerca de</a></li>
+        <li><a href="changelog.html"      data-nav>Novedades</a></li>
+        <li><a href="contact.html"        data-nav>Contacto</a></li>
+        <li><a href="privacy-policy.html" data-nav>Privacidad</a></li>
+      </ul>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Menú" aria-expanded="false">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6"  x2="19" y2="6"/>
+          <line x1="3" y1="11" x2="19" y2="11"/>
+          <line x1="3" y1="16" x2="19" y2="16"/>
+        </svg>
+      </button>
+    </div>
+    <div class="nav__mobile" id="nav-mobile">
+      <a href="index.html"          data-nav>Inicio</a>
+      <a href="about.html"          data-nav>Acerca de</a>
+      <a href="changelog.html"      data-nav>Novedades</a>
+      <a href="contact.html"        data-nav>Contacto</a>
+      <a href="privacy-policy.html" data-nav>Privacidad</a>
+    </div>
+  </nav>
+
+  <main>
+    <article class="policy">
+
+      <div class="badge">Legal</div>
+      <h1>Política de Privacidad</h1>
+      <p class="updated">Última actualización: junio de 2026</p>
+
+      <h2>1. Información general</h2>
+      <p>SMAE Tracker es una aplicación de seguimiento nutricional basada en el Sistema Mexicano de Alimentos Equivalentes (SMAE). Esta política explica qué información se maneja y cómo se protege.</p>
+
+      <hr/>
+
+      <h2>2. Datos recopilados</h2>
+      <p>SMAE Tracker recopila únicamente los datos que tú ingresas directamente en la aplicación:</p>
+      <ul>
+        <li>Metas diarias de grupos alimenticios SMAE.</li>
+        <li>Registro de alimentos consumidos por día y comida.</li>
+        <li>Alimentos personalizados que agregues al catálogo.</li>
+        <li>Plantillas de comidas frecuentes.</li>
+      </ul>
+      <div class="highlight">No se recopilan datos personales como nombre, correo electrónico, ubicación, ni información de salud clínica.</div>
+
+      <hr/>
+
+      <h2>3. Almacenamiento de datos</h2>
+      <p>Todos los datos de nutrición se almacenan exclusivamente en el dispositivo local usando una base de datos SQLite. No se comparte esta información con terceros.</p>
+      <p>Los datos permanecen en el dispositivo hasta que:</p>
+      <ul>
+        <li>El usuario los elimina manualmente desde la aplicación.</li>
+        <li>Se desinstala la aplicación.</li>
+      </ul>
+
+      <hr/>
+
+      <h2>4. Respaldo y exportación</h2>
+      <p>La función de respaldo genera archivos JSON o CSV que se guardan en el almacenamiento del dispositivo elegido por el usuario. El usuario es responsable de estos archivos una vez exportados.</p>
+
+      <hr/>
+
+      <h2>5. Permisos</h2>
+      <p>SMAE Tracker solicita acceso al almacenamiento únicamente para exportar e importar respaldos de datos. No se solicitan permisos de cámara, micrófono, ubicación, contactos ni ningún otro dato sensible.</p>
+
+      <hr/>
+
+      <h2>6. Analíticas y monitoreo</h2>
+      <p>SMAE Tracker utiliza Firebase Analytics y Firebase Crashlytics, servicios de Google, para mejorar la calidad de la aplicación.</p>
+      <p><strong>Firebase Analytics</strong> recopila métricas agregadas de uso:</p>
+      <ul>
+        <li>Pantallas visitadas y flujos de navegación.</li>
+        <li>Funcionalidades utilizadas (registro de alimentos, templates, favoritos, widget).</li>
+        <li>Eventos de onboarding y configuración de metas.</li>
+        <li>Frecuencia de uso general.</li>
+      </ul>
+      <p><strong>Firebase Crashlytics</strong> recopila información técnica cuando ocurre un error:</p>
+      <ul>
+        <li>Tipo de dispositivo y versión de Android.</li>
+        <li>Versión de la aplicación.</li>
+        <li>Registro del error (stack trace).</li>
+      </ul>
+      <p>Esta información se usa exclusivamente para:</p>
+      <ul>
+        <li>Identificar y corregir errores.</li>
+        <li>Entender qué funcionalidades son más utilizadas.</li>
+        <li>Mejorar la experiencia de uso.</li>
+      </ul>
+      <div class="highlight">No se recopilan datos médicos, nutricionales personales, ni ningún dato ingresado por el usuario dentro de la aplicación. No se realizan perfiles publicitarios ni se venden datos a terceros.</div>
+      <p>Para más información sobre las prácticas de privacidad de Firebase, consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">política de privacidad de Google</a>.</p>
+
+      <hr/>
+
+      <h2>7. Menores de edad</h2>
+      <p>SMAE Tracker no está dirigida a menores de 13 años. No se recopilan datos de menores de manera intencional.</p>
+
+      <hr/>
+
+      <h2>8. Cambios a esta política</h2>
+      <p>Cualquier cambio a esta política de privacidad se reflejará en una actualización de la aplicación. La fecha de última actualización aparece al inicio de este documento.</p>
+
+      <hr/>
+
+      <h2>9. Contacto</h2>
+      <p>Si tienes preguntas sobre esta política de privacidad, puedes escribir a:</p>
+      <p><strong>Cristian Colorado</strong><br/>
+      <a href="mailto:soporte@smaetracker.app">soporte@smaetracker.app</a></p>
+
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="assets/logo.svg" alt="SMAE Tracker"/>
+        SMAE Tracker
+      </div>
+      <nav class="footer__links">
+        <a href="privacy-policy.html">Política de privacidad</a>
+        <a href="about.html">Acerca de</a>
+        <a href="changelog.html">Novedades</a>
+        <a href="contact.html">Contacto</a>
+      </nav>
+      <p class="footer__copy">© 2026 SMAE Tracker. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

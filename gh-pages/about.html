@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Acerca de — SMAE Tracker</title>
+  <meta name="description" content="Conoce más sobre SMAE Tracker, sus tecnologías, el autor y las próximas funcionalidades."/>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    .about { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+    .about h1 { font-size: 2rem; margin-bottom: 8px; }
+    .about .subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 48px; }
+
+    /* App identity card */
+    .app-card {
+      display: flex; align-items: center; gap: 20px;
+      background: white; border-radius: var(--radius-lg);
+      padding: 24px; box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border); margin-bottom: 40px;
+    }
+    .app-card img { width: 72px; height: 72px; border-radius: 18px; flex-shrink: 0; }
+    .app-card__name { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+    .app-card__version {
+      display: inline-block; font-size: .8rem; font-weight: 600;
+      background: #E8F4EA; color: var(--sage-dark);
+      padding: 3px 10px; border-radius: var(--radius-full); margin-bottom: 8px;
+    }
+    .app-card__desc { font-size: .93rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* Section headers */
+    .about h2 {
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--text); margin: 40px 0 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .about h2::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* Tech stack grid */
+    .tech-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .tech-item {
+      display: flex; align-items: center; gap: 12px;
+      background: white; border-radius: var(--radius-md);
+      padding: 14px 16px; box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .tech-item__icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 1rem;
+    }
+    .tech-item__name  { font-size: .95rem; font-weight: 600; }
+    .tech-item__label { font-size: .78rem; color: var(--text-muted); }
+
+    /* Author card */
+    .author-card {
+      display: flex; align-items: center; gap: 20px;
+      background: white; border-radius: var(--radius-lg);
+      padding: 24px; box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .author-avatar {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage), var(--sage-dark));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; font-weight: 700; color: white; flex-shrink: 0;
+    }
+    .author-card__name  { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+    .author-card__links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .author-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: .85rem; font-weight: 500; color: var(--sage);
+      background: #E8F4EA; padding: 5px 12px; border-radius: var(--radius-full);
+      transition: opacity .15s;
+    }
+    .author-link:hover { opacity: .8; }
+
+    /* Credits */
+    .credits-list {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .credit-item {
+      display: flex; align-items: center; gap: 14px;
+      background: white; border-radius: var(--radius-md);
+      padding: 14px 16px; box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .credit-item__dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--sage-muted); flex-shrink: 0;
+    }
+    .credit-item__name  { font-size: .95rem; font-weight: 600; }
+    .credit-item__desc  { font-size: .82rem; color: var(--text-muted); }
+
+    /* Roadmap */
+    .roadmap-list {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .roadmap-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: white; border-radius: var(--radius-md);
+      padding: 14px 16px; box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .roadmap-item__badge {
+      font-size: .72rem; font-weight: 600; letter-spacing: .04em;
+      text-transform: uppercase; padding: 3px 8px;
+      border-radius: var(--radius-full); flex-shrink: 0; margin-top: 1px;
+      background: #FEF3E2; color: #9A6B00;
+    }
+    .roadmap-item__text { font-size: .95rem; line-height: 1.5; }
+
+    @media (max-width: 480px) {
+      .app-card { flex-direction: column; text-align: center; }
+      .author-card { flex-direction: column; text-align: center; }
+      .author-card__links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">
+        <img src="assets/logo.svg" alt="SMAE Tracker"/>
+        SMAE Tracker
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html"          data-nav>Inicio</a></li>
+        <li><a href="about.html"          data-nav>Acerca de</a></li>
+        <li><a href="changelog.html"      data-nav>Novedades</a></li>
+        <li><a href="contact.html"        data-nav>Contacto</a></li>
+        <li><a href="privacy-policy.html" data-nav>Privacidad</a></li>
+      </ul>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Menú" aria-expanded="false">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6"  x2="19" y2="6"/>
+          <line x1="3" y1="11" x2="19" y2="11"/>
+          <line x1="3" y1="16" x2="19" y2="16"/>
+        </svg>
+      </button>
+    </div>
+    <div class="nav__mobile" id="nav-mobile">
+      <a href="index.html"          data-nav>Inicio</a>
+      <a href="about.html"          data-nav>Acerca de</a>
+      <a href="changelog.html"      data-nav>Novedades</a>
+      <a href="contact.html"        data-nav>Contacto</a>
+      <a href="privacy-policy.html" data-nav>Privacidad</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="about">
+
+      <div class="badge">Información</div>
+      <h1>Acerca de</h1>
+      <p class="subtitle">SMAE Tracker es un proyecto independiente creado para hacer el seguimiento nutricional SMAE simple, visual y consistente.</p>
+
+      <!-- App identity -->
+      <div class="app-card">
+        <img src="assets/logo.svg" alt="SMAE Tracker"/>
+        <div>
+          <div class="app-card__name">SMAE Tracker</div>
+          <span class="app-card__version">v1.0.0</span>
+          <p class="app-card__desc">
+            Aplicación Android para el seguimiento diario de alimentos basado en el
+            Sistema Mexicano de Alimentos Equivalentes. Diseñada para ser simple,
+            rápida y respetuosa con tu privacidad.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tech stack -->
+      <h2>Tecnologías</h2>
+      <div class="tech-grid">
+
+        <div class="tech-item">
+          <div class="tech-item__icon" style="background:#E8F0FF;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#4B7BEC">
+              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="tech-item__name">Kotlin</div>
+            <div class="tech-item__label">Lenguaje principal</div>
+          </div>
+        </div>
+
+        <div class="tech-item">
+          <div class="tech-item__icon" style="background:#E8F4EA;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+            </svg>
+          </div>
+          <div>
+            <div class="tech-item__name">Jetpack Compose</div>
+            <div class="tech-item__label">UI declarativa</div>
+          </div>
+        </div>
+
+        <div class="tech-item">
+          <div class="tech-item__icon" style="background:#FEF3E2;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DDB892" stroke-width="2">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="tech-item__name">Room</div>
+            <div class="tech-item__label">Base de datos local</div>
+          </div>
+        </div>
+
+        <div class="tech-item">
+          <div class="tech-item__icon" style="background:#F3EDFF;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B6B8A" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+          </div>
+          <div>
+            <div class="tech-item__name">Material 3</div>
+            <div class="tech-item__label">Design system</div>
+          </div>
+        </div>
+
+        <div class="tech-item">
+          <div class="tech-item__icon" style="background:#FFF0ED;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#FF6D00">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="tech-item__name">Firebase</div>
+            <div class="tech-item__label">Analytics + Crashlytics</div>
+          </div>
+        </div>
+
+        <div class="tech-item">
+          <div class="tech-item__icon" style="background:#E8F4EA;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="tech-item__name">Hilt</div>
+            <div class="tech-item__label">Inyección de dependencias</div>
+          </div>
+        </div>
+
+        <div class="tech-item">
+          <div class="tech-item__icon" style="background:#FEF3E2;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DDB892" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+            </svg>
+          </div>
+          <div>
+            <div class="tech-item__name">Glance</div>
+            <div class="tech-item__label">Widget Android</div>
+          </div>
+        </div>
+
+        <div class="tech-item">
+          <div class="tech-item__icon" style="background:#E8F4EA;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B8F71" stroke-width="2">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <div>
+            <div class="tech-item__name">Kotlin Coroutines</div>
+            <div class="tech-item__label">Asincronía + Flow</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Author -->
+      <h2>Autor</h2>
+      <div class="author-card">
+        <div class="author-avatar">CC</div>
+        <div>
+          <div class="author-card__name">Cristian Colorado</div>
+          <p style="font-size:.9rem; color:var(--text-muted); line-height:1.5;">
+            Desarrollador de software independiente apasionado por crear herramientas útiles para la vida cotidiana.
+          </p>
+          <div class="author-card__links">
+            <a href="mailto:soporte@smaetracker.app" class="author-link">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              soporte@smaetracker.app
+            </a>
+            <a href="https://github.com/TODO/smae-tracker" target="_blank" rel="noopener" class="author-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Credits -->
+      <h2>Créditos</h2>
+      <div class="credits-list">
+
+        <div class="credit-item">
+          <div class="credit-item__dot" style="background:#C97878;"></div>
+          <div>
+            <div class="credit-item__name">Sistema Mexicano de Alimentos Equivalentes (SMAE)</div>
+            <div class="credit-item__desc">Base nutricional y clasificación de grupos alimenticios utilizada en la aplicación.</div>
+          </div>
+        </div>
+
+        <div class="credit-item">
+          <div class="credit-item__dot" style="background:#6B8F71;"></div>
+          <div>
+            <div class="credit-item__name">Android Jetpack</div>
+            <div class="credit-item__desc">Suite de librerías de Google: Compose, Room, Hilt, Navigation, Glance, DataStore.</div>
+          </div>
+        </div>
+
+        <div class="credit-item">
+          <div class="credit-item__dot" style="background:#8B6B8A;"></div>
+          <div>
+            <div class="credit-item__name">Material Design 3</div>
+            <div class="credit-item__desc">Sistema de diseño de Google que define la paleta, tipografía y componentes visuales.</div>
+          </div>
+        </div>
+
+        <div class="credit-item">
+          <div class="credit-item__dot" style="background:#DDB892;"></div>
+          <div>
+            <div class="credit-item__name">DM Sans</div>
+            <div class="credit-item__desc">Tipografía de Google Fonts utilizada en la identidad visual de la aplicación y este sitio.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Roadmap -->
+      <h2>Próximamente</h2>
+      <div class="roadmap-list">
+
+        <div class="roadmap-item">
+          <span class="roadmap-item__badge">Planeado</span>
+          <div class="roadmap-item__text"><strong>Calendario de actividad</strong> — Visualiza tus días de registro en un calendario mensual con indicadores de cumplimiento.</div>
+        </div>
+
+        <div class="roadmap-item">
+          <span class="roadmap-item__badge">Planeado</span>
+          <div class="roadmap-item__text"><strong>Recordatorios inteligentes</strong> — Notificaciones configurables para recordar registrar tus comidas a tiempo.</div>
+        </div>
+
+        <div class="roadmap-item">
+          <span class="roadmap-item__badge">Planeado</span>
+          <div class="roadmap-item__text"><strong>Más estadísticas nutricionales</strong> — Análisis más profundo por grupo SMAE, días de la semana y patrones de consumo.</div>
+        </div>
+
+        <div class="roadmap-item">
+          <span class="roadmap-item__badge">Planeado</span>
+          <div class="roadmap-item__text"><strong>Mejoras del widget</strong> — Nuevos tamaños y estados visuales para el widget de pantalla de inicio.</div>
+        </div>
+
+        <div class="roadmap-item">
+          <span class="roadmap-item__badge">Planeado</span>
+          <div class="roadmap-item__text"><strong>Sincronización entre dispositivos</strong> — Copia de seguridad automática y acceso a tus datos desde múltiples dispositivos.</div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="assets/logo.svg" alt="SMAE Tracker"/>
+        SMAE Tracker
+      </div>
+      <nav class="footer__links">
+        <a href="privacy-policy.html">Política de privacidad</a>
+        <a href="about.html">Acerca de</a>
+        <a href="changelog.html">Novedades</a>
+        <a href="contact.html">Contacto</a>
+      </nav>
+      <p class="footer__copy">© 2026 SMAE Tracker. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
